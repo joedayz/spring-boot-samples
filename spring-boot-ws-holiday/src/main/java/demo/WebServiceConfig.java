@@ -5,12 +5,15 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
 import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
 import org.springframework.xml.xsd.SimpleXsdSchema;
 import org.springframework.xml.xsd.XsdSchema;
+
+import demo.client.StudentClient;
 
 @EnableWs
 @Configuration
@@ -67,10 +70,23 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 	}
 		
 	
+	//cliente beans
 	
+	@Bean
+	public Jaxb2Marshaller marshaller() {
+		Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
+		marshaller.setContextPath("pe.joedayz.wsdl");
+		return marshaller;
+	}
 	
-	
-	
+	@Bean
+	public StudentClient studentClient(Jaxb2Marshaller marshaller) {
+		StudentClient client = new StudentClient();
+		client.setDefaultUri("http://localhost:8080/services/students.wsdl");
+		client.setMarshaller(marshaller);
+		client.setUnmarshaller(marshaller);
+		return client;
+	}
 	
 	
 	
