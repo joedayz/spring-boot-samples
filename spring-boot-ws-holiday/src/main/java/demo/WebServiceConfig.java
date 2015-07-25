@@ -21,6 +21,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 				dispatcherServlet(ApplicationContext applicationContext){
 		MessageDispatcherServlet servlet = new MessageDispatcherServlet();
 		servlet.setApplicationContext(applicationContext);
+		servlet.setTransformWsdlLocations(true);
 		return new ServletRegistrationBean(servlet, "/services/*");
 	}
 	
