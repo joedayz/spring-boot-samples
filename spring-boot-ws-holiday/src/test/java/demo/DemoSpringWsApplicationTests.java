@@ -43,7 +43,7 @@ public class DemoSpringWsApplicationTests {
 	
 	@Test
 	public void testSendingHolidayRequest() {
-		final String request = "<hr:HolidayRequest xmlns:hr=\"http://mycompany.com/hr/schemas\">"
+		final String request = "<hr:HolidayRequest xmlns:hr=\"http://joedayz.pe/hr/schemas\">"
 				+ "   <hr:Holiday>"
 				+ "      <hr:StartDate>2013-10-20</hr:StartDate>"
 				+ "      <hr:EndDate>2013-11-22</hr:EndDate>"
