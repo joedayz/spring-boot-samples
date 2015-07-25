@@ -3,8 +3,11 @@ package demo.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 import pe.joedayz.soap.Student;
 
+@Service
 public class StubStudentService implements StudentService {
 
 

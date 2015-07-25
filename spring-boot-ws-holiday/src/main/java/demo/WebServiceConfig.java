@@ -36,6 +36,20 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 		
 		return wsdl11Definition;
 	}
+
+	@Bean(name="students")  //http://localhost:8080/services/students.wsdl
+	public DefaultWsdl11Definition studentsWsdl11Definition(
+				XsdSchema studentsSchema){
+		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+		wsdl11Definition.setPortTypeName("StudentResource");
+		wsdl11Definition.setLocationUri("/studentService");
+		wsdl11Definition.setTargetNamespace("http://joedayz.pe/soap");
+		wsdl11Definition.setSchema(studentsSchema);
+		
+		return wsdl11Definition;
+	}
+
+	
 	
 	//Primero inicia con el XSD: Schema XML
 	@Bean
@@ -45,7 +59,12 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 	}
 	
 	
-	
+	@Bean
+	public XsdSchema studentsSchema(){
+		return new SimpleXsdSchema(
+				new ClassPathResource("META-INF/schemas/students.xsd"));
+	}
+		
 	
 	
 	
