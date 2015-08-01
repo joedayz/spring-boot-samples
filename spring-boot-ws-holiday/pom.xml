@@ -84,30 +84,7 @@
 		    </configuration>
 		   </plugin>			
 			
-			<!-- Plugin para el cliente -->
-			
-			
-		<plugin>
-		    <groupId>org.jvnet.jaxb2.maven2</groupId>
-		    <artifactId>maven-jaxb2-plugin</artifactId>
-		    <executions>
-		        <execution>
-		            <goals>
-		                <goal>generate</goal>
-		            </goals>
-		        </execution>
-		    </executions>
-		    <configuration>
-		        <schemaLanguage>WSDL</schemaLanguage>
-		        <generatePackage>pe.joedayz.wsdl</generatePackage>
-		        <forceRegenerate>true</forceRegenerate>
-		        <schemas>
-		            <schema>
-		                <url>http://localhost:8080/services/students.wsdl</url>
-		            </schema>
-		        </schemas>
-		    </configuration>
-		</plugin>			
+		
 			
 			
 			
