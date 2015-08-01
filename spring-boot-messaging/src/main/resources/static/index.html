@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Realtime Messaging</title>
+	<style>
+		.message.outgoing {
+			color: blue;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<h3>Send a Message</h3>
+		<p>To:</p> <select id="to"></select>
+		<p>Message:</p>
+		<textarea id="message"></textarea>
+		<button type="button" id="send">Send</button>
+	</div>
+	<div>
+		<h3>Messages Received</h3>
+		<ol id="messages"></ol>
+	</div>
+	<!-- this time we're not serving sockjs and stomp.js ourselves -->
+	<script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+	<script type="text/javascript">
+		// encapsulates interaction methods and event bindings for readability
+		var UIHelper = function(api) {
+			var messageList = $("#messages");
+			var sendButton = $("#send");
+			var userList = $("#to");
+			var messageField = $("#message");
+			var self = this;
+			
+			sendButton.on("click", function(e) {
+				var message = self.getCurrentMessage();
+				self.appendMessage(message);
+				api.sendMessage(message, function() {
+					self.setMessageContent("");
+				});
+			});
+			
+			var getMessageString = function(message) {				
+				// the date parameter is used differently because its format differs on the client on the server
+				if(!!message.isIncoming)
+					return "<li class=\"message incoming\"><p>&lt;&lt;&lt; Sent by " + message.from + " on " + new Date(message.date) + "</p><div>" + message.content + "</li>";
+				else
+					return "<li class=\"message outgoing\"><p>&gt;&gt;&gt; Sent to " + message.to + " on " + message.date + "</p><div>" + message.content + "</li>";
+			};
+
+			var getUserListEntry = function(username) {
+				return "<option value=\"" + username + "\">" + username + "</option>";
+			};
+			
+			this.getCurrentMessage = function() {
+				var message = {
+					to: userList.val(),
+					content: messageField.val(),
+               		date: new Date(),
+               		isIncoming: false
+				};
+				return message;
+			};
+			
+			this.appendMessage = function(message) {
+				var messageEntry = getMessageString(message);
+				messageList.append(messageEntry);
+			};
+			
+			this.appendUsername = function(username) {
+				// check if the user is already on the list so as not to add them twice
+				if(userList.find("[value='" + username +"']").length > 0)
+					return;
+				
+				var userEntry = getUserListEntry(username);
+				userList.append(userEntry);
+			};
+			
+			this.setMessageContent = function(content) {
+				messageField.val(content);
+			};
+		};
+		
+		// wraps API calls for readability
+		var APIClient = function() {
+			var defaultHeaders = {
+				"Content-Type": "application/json"
+			};
+			
+			this.getLoggedInUsers = function(then) {
+				$.ajax({
+            		url: "/users",
+            		method: "GET",
+            		headers: defaultHeaders,
+            		dataType: "json",
+            		success: function(users) {
+            			if(typeof then === "function")
+            				then(users);
+            		}
+            	});
+			};
+			
+			this.sendMessage = function(message, then) {
+				$.ajax({
+            		url: "/send",
+            		method: "POST",
+            		headers: defaultHeaders,
+            		data: JSON.stringify(message),
+                	success: function() {
+            			if(typeof then === "function")
+            				then();
+                	}
+            	});
+			};
+		};
+	
+		$(document).ready(function() {
+			var api = new APIClient();
+			var ui = new UIHelper(api);
+
+			var socket = new SockJS('/messaging');
+			var stompClient = Stomp.over(socket);
+            stompClient.connect({ }, function(frame) {
+            	
+            	// subscribe to the /topic/messages endpoint which feeds newly added messages
+                stompClient.subscribe('/user/topic/messages', function(data) {
+                	// when a message is received add it to the end of the list
+                    var body = data.body;
+                    var message = JSON.parse(body);
+                    message.isIncoming = true;
+                    message.date = new Date(message.date);
+                    ui.appendMessage(message);
+                });
+            	
+            	// subscribe to the /topic/users to get notified when a user subscribes to the server
+            	stompClient.subscribe('/topic/users', function(data) {
+            		var username = data.body;
+            		ui.appendUsername(username);
+            	});
+            	
+            	// get the list of users and populate the select box
+            	api.getLoggedInUsers(function(users) {
+            		for(var i = 0, l = users.length; i < l; i++)
+            			ui.appendUsername(users[i]);
+            	});
+            	
+            	// notify the server
+            	stompClient.send("/app/messaging", {}, "");
+            });
+		});
+	</script>
+</body>
+</html>
