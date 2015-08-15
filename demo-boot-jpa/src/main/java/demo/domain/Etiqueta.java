@@ -18,7 +18,7 @@ public class Etiqueta {
 	private String nombre;
 	
 	@ManyToMany(mappedBy="etiquetas")
-	private List<Notas> notas;
+	private List<Nota> notas;
 
 	public long getId() {
 		return id;
@@ -36,11 +36,11 @@ public class Etiqueta {
 		this.nombre = nombre;
 	}
 
-	public List<Notas> getNotas() {
+	public List<Nota> getNotas() {
 		return notas;
 	}
 
-	public void setNotas(List<Notas> notas) {
+	public void setNotas(List<Nota> notas) {
 		this.notas = notas;
 	}
 	

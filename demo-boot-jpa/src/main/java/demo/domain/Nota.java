@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Notas {
+public class Nota {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
