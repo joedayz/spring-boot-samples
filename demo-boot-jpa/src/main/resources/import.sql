@@ -1,0 +1,17 @@
+insert into etiqueta(nombre) values ('Spring projects')
+insert into etiqueta(nombre) values ('Apache projects')
+insert into etiqueta(nombre) values ('Open source')
+
+insert into notas(titulo, contenido) values ('Spring Boot', 'Takes an opinionated view of building production-ready Spring applications.')
+insert into notas(titulo, contenido) values ('Spring Framework', 'Core support for dependency injection, transaction management, web applications, data access, messaging, testing and more.')
+insert into notas(titulo, contenido) values ('Spring Integration', 'Extends the Spring programming model to support the well-known Enterprise Integration Patterns.')
+insert into notas(titulo, contenido) values ('Tomcat', 'Apache Tomcat is an open source software implementation of the Java Servlet and JavaServer Pages technologies.')
+
+insert into notas_etiquetas(notas_id, etiquetas_id) values (1, 1)
+insert into notas_etiquetas(notas_id, etiquetas_id) values (2, 1)
+insert into notas_etiquetas(notas_id, etiquetas_id) values (3, 1)
+insert into notas_etiquetas(notas_id, etiquetas_id) values (1, 3)
+insert into notas_etiquetas(notas_id, etiquetas_id) values (2, 3)
+insert into notas_etiquetas(notas_id, etiquetas_id) values (3, 3)
+insert into notas_etiquetas(notas_id, etiquetas_id) values (4, 2)
+insert into notas_etiquetas(notas_id, etiquetas_id) values (4, 3)
