@@ -18,7 +18,7 @@ public class HotelController {
 	@ResponseBody
 	@Transactional(readOnly=true)
 	public String hola(){
-		return this.cityService.getCity("Batch", "UK")
+		return this.cityService.getCity("Bath", "UK")
 				.getName();
 	}
 	
