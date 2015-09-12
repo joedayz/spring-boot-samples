@@ -13,8 +13,6 @@ import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
 import org.springframework.xml.xsd.SimpleXsdSchema;
 import org.springframework.xml.xsd.XsdSchema;
 
-import demo.client.StudentClient;
-
 @EnableWs
 @Configuration
 public class WebServiceConfig extends WsConfigurerAdapter {
@@ -79,14 +77,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 		return marshaller;
 	}
 	
-	@Bean
-	public StudentClient studentClient(Jaxb2Marshaller marshaller) {
-		StudentClient client = new StudentClient();
-		client.setDefaultUri("http://localhost:8080/services/students.wsdl");
-		client.setMarshaller(marshaller);
-		client.setUnmarshaller(marshaller);
-		return client;
-	}
+
 	
 	
 	

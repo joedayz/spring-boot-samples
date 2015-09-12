@@ -8,7 +8,6 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 import demo.domain.Etiqueta;
-import demo.domain.Nota;
 
 @Repository
 public class JpaEtiquetaRepository implements EtiquetaRepository {

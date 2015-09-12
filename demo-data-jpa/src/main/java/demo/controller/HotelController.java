@@ -1,6 +1,7 @@
 package demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +12,7 @@ import demo.service.CityService;
 @Controller
 public class HotelController {
 
-	@Autowired
+	@Autowired 
 	private CityService cityService;
 	
 	@RequestMapping("/")

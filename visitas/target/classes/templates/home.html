@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Inicio de Visitas</title>
+</head>
+<body>
+	<h1>Libro de Visitas</h1>
+
+
+	<table>
+
+			<tr th:each="visita : ${visitas}">
+				<td th:text="${visita.nombres}">Nombres</td>
+				<td th:text="${visita.correo}">Correo</td>
+				<td th:text="${visita.comentarios}">Comentarios</td>
+			</tr>
+
+
+	</table>
+
+
+	<h1>Ingrese su visita</h1>
+	
+  	<form action="#" th:action="@{/}" th:object="${visita}" method="post">
+    	<p>Nombres: <input type="text" th:field="*{nombres}" /></p>
+        <p>Correo: <input type="text" th:field="*{correo}" /></p>
+        <p>Comentarios: 
+        <textarea rows="12" style="margin-top: 10px;"  
+        	placeholder="Comentarios"  th:field="*{comentarios}"></textarea>
+        </p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+
+	<p>
+		Click <a th:href="@{/hello}">Ir</a> a Administración.
+	</p>
+</body>
+</html>
