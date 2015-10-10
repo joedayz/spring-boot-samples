@@ -6,18 +6,17 @@
     </head>
     <body>
         
-        
-        
-        
-        
-        
-        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
+	<div >		
+		<div >
+			<h3>You do not have permission to access this page!</h3>	
+		</div>
+
+		 <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign in as different user"/>
         </form>
         
         
-        
-        
-    </body>
+		
+	</div>	
+</body>
 </html>

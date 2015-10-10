@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Admin Visitas</title>
+</head>
+<body>
+
+
+
+
+
+
+	<h1 th:inline="text">Administrar Visitas por
+		[[${#httpServletRequest.remoteUser}]]!</h1>
+
+
+	<table>
+
+		<tr>
+			<th>Nombres</th>
+			<th>Correo</th>
+			<th>Comentarios</th>
+			<th>Acciones</th>
+		</tr>
+		<tr th:each="visita : ${visitas}">
+			<td th:text="${visita.nombres}">Nombres</td>
+			<td th:text="${visita.correo}">Correo</td>
+			<td th:text="${visita.comentarios}">Comentarios</td>
+			<td><a th:href="@{/admin/{id}(id=${visita.id})}"><span>Eliminar</span></a></td>
+		</tr>
+
+
+	</table>
+
+	<br />
+
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Sign Out" />
+	</form>
+
+
+
+
+</body>
+</html>
