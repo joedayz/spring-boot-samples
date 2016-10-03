@@ -1,0 +1,80 @@
+= Weather API
+Andy Wilkinson;
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+
+
+[[introduction]]
+= Introduction
+
+The Weather API provides access to current weather data and a weather forecast.
+
+
+
+[[current-weather]]
+== Current weather
+
+Current weather is available from `api/weather/now/{country}/{city}`.
+
+
+
+[[current-weather-request]]
+=== Request
+Two path parameters are used to indicate the location for which weather data is required:
+
+include::{snippets}/weather/path-parameters.adoc[]
+
+For example, a curl request for the current weather in Barcelona, Spain looks like this:
+
+include::{snippets}/weather/curl-request.adoc[]
+
+
+
+[[current-weather-response]]
+=== Response
+
+The following fields are found in the response:
+
+include::{snippets}/weather/response-fields.adoc[]
+
+A typical response looks like this:
+
+include::{snippets}/weather/http-response.adoc[]
+
+
+
+[[weather-forecast]]
+== Weather forecast
+
+A weather forecast is available from `api/weather/forecast/{country}/{city}`.
+
+
+
+[[weather-forecast-request]]
+=== Request
+Two path parameters are used to indicate the location for which a weather forecast is
+required:
+
+include::{snippets}/weather-forecast/path-parameters.adoc[]
+
+For example, a curl request for the weather forecast for Barcelona, Spain looks like this:
+
+include::{snippets}/weather-forecast/curl-request.adoc[]
+
+
+
+[[weather-forecast-response]]
+=== Response
+
+The following fields are found in the response:
+
+include::{snippets}/weather-forecast/response-fields.adoc[]
+
+A typical response looks like this:
+
+include::{snippets}/weather-forecast/http-response.adoc[]

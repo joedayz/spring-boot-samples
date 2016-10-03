@@ -1,0 +1,25 @@
+= Simple weather app
+
+== Getting started
+
+To use this app, you need to register an http://openweathermap.org/appid[API Key] on the
+http://openweathermap.org/[OpenWeatherApp] service.
+
+You can create an `application-secrets.properties` in `src/main/resources` and add your
+API key there:
+
+```
+app.weather.api.key=<yourkey>
+```
+
+TIP: The `application-secrets.properties` file is referenced in the `.gitignore` of the
+project so you won't commit it by mistake. The `secrets` profile is enabled by default
+via the `spring.profiles.active` in the main configuration.
+
+If you don't like specifying the key in the project directly, you can set an OS
+environment property instead, something like:
+
+```
+$ EXPORT APP_WEATHER_API_KEY=<yourkey>
+```
+
