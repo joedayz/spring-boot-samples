@@ -35,7 +35,7 @@ public class InicioController {
 	@RequestMapping(value="/", method=RequestMethod.POST)
     public String submit(@ModelAttribute Visita visita, 
     				Model model) {
-        model.addAttribute("visita", visita);
+        //model.addAttribute("visita", visita);
         visitasRepository.save(visita);
         return "redirect:/";
     }
