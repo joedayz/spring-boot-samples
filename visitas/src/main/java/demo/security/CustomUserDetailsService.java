@@ -29,7 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user=userRepository.findByUserName(username);
-		if(user.equals(null)){
+		if(user==null){
 			throw new UsernameNotFoundException("No user present with username: "+username);
 		}else{
 			List<String> userRoles=userRolesRepository.findRoleByUserName(username);
